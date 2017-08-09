@@ -10,5 +10,5 @@ package escalonadores;
  * @author Lucas
  */
 public class RR {
-    
+    String teste = "testeTesteTeste";
 }
