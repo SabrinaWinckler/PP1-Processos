@@ -6,8 +6,7 @@
 package estruturas;
 
 /**
- *
- * @author Lucas
+ * @author Gustavo Bittencourt Satheler
  */
 public class ListaEncadeada {
     
