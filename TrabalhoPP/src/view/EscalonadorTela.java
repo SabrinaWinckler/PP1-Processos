@@ -7,7 +7,7 @@ package view;
 
 /**
  *
- * @author Lucas
+ * @author Sabrina
  */
 public class EscalonadorTela extends javax.swing.JFrame {
 
