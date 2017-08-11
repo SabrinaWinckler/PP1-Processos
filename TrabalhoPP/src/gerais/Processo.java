@@ -11,31 +11,34 @@ package gerais;
  */
 public class Processo {
 
+    private String nome;
+    private int chegada;
     private int tempo;
-    private int prioridade;
-    private boolean finalizado;
 
-    public void Processo(int tempo, int prioridade) {
+    public void Processo(String nome, int chegada, int tempo) {
+
+        this.nome = nome;
+        this.chegada = chegada;
         this.tempo = tempo;
-        this.prioridade = prioridade;
-        this.finalizado = false;
+
     }
 
     public void executar() {
         if (this.tempo > 0) {
             this.tempo--;
-            if (this.tempo == 0) {
-                this.finalizado = true;
-            }
         }
     }
 
-    public boolean estaFinalizado() {
-        return this.finalizado;
+    public String getNome() {
+        return this.nome;
     }
 
-    public int getPrioridade() {
-        return this.prioridade;
+    public int getChegada() {
+        return this.chegada;
+    }
+
+    public int getTempo() {
+        return this.tempo;
     }
 
 }
