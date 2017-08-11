@@ -38,7 +38,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="choice1" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="button1" min="-2" max="-2" attributes="0"/>
+                      <Component id="play" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
@@ -72,7 +72,7 @@
                       <Component id="jButtonimport" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="button1" min="-2" max="-2" attributes="0"/>
+                          <Component id="play" min="-2" max="-2" attributes="0"/>
                           <Component id="choice1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -109,11 +109,14 @@
         <Property name="text" type="java.lang.String" value="Escalonadores"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Button" name="button1">
+    <Component class="java.awt.Button" name="play">
       <Properties>
         <Property name="actionCommand" type="java.lang.String" value="Play"/>
         <Property name="label" type="java.lang.String" value="Play"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>

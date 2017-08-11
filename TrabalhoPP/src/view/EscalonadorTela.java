@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view;
 
 import java.awt.Choice;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -39,7 +41,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
 
         jButtonimport = new javax.swing.JButton();
         label1 = new java.awt.Label();
-        button1 = new java.awt.Button();
+        play = new java.awt.Button();
         jPanel1 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jButton1 = new javax.swing.JButton();
@@ -62,8 +64,13 @@ public class EscalonadorTela extends javax.swing.JFrame {
 
         label1.setText("Escalonadores");
 
-        button1.setActionCommand("Play");
-        button1.setLabel("Play");
+        play.setActionCommand("Play");
+        play.setLabel("Play");
+        play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setFocusCycleRoot(true);
@@ -98,7 +105,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -124,7 +131,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
                         .addComponent(jButtonimport)
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -146,7 +153,8 @@ public class EscalonadorTela extends javax.swing.JFrame {
     private void jButtonimportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonimportActionPerformed
         try {
      JFileChooser chooser = new JFileChooser();
-    // chooser.setFileFilter(new FileNameExtensionFilter("Apenas csv"));
+     FileNameExtensionFilter filtro = new FileNameExtensionFilter("AQUIVO CSV", "csv");
+     chooser.setFileFilter(filtro);
      int retorno = chooser.showOpenDialog(null);
  
      if (retorno == JFileChooser.APPROVE_OPTION) {
@@ -157,6 +165,10 @@ public class EscalonadorTela extends javax.swing.JFrame {
             Logger.getLogger(EscalonadorTela.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonimportActionPerformed
+
+    private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -191,7 +203,6 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
     public java.awt.Choice choice1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -200,5 +211,6 @@ public class EscalonadorTela extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSlider jSlider1;
     private java.awt.Label label1;
+    private java.awt.Button play;
     // End of variables declaration//GEN-END:variables
 }
