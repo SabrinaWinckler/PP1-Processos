@@ -15,7 +15,7 @@ public class Processo {
     private int chegada;
     private int tempo;
 
-    public void Processo(String nome, int chegada, int tempo) {
+    public Processo(String nome, int chegada, int tempo) {
 
         this.nome = nome;
         this.chegada = chegada;
