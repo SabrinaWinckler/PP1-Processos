@@ -17,7 +17,7 @@ public class ListaCircular<T> {
     int posicaoAtual;
     int posicoesLivres;
     
-    public void ListaCircular(int tamanho){
+    public ListaCircular(int tamanho){
         this.tamanho = tamanho;
         this.objetos = new Object[tamanho];
     }
