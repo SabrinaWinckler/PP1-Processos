@@ -27,12 +27,15 @@ public class Processo {
             if (this.tempo == 0) {
                 this.finalizado = true;
             }
-
         }
     }
 
-    public boolean estaFinalizado(){
+    public boolean estaFinalizado() {
         return this.finalizado;
     }
-    
+
+    public int getPrioridade() {
+        return this.prioridade;
+    }
+
 }
