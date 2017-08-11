@@ -9,6 +9,12 @@ package estruturas;
  *
  * @author Lucas
  */
-public class ListaCircular {
+public class ListaCircular<T> {
+    
+    int tamanho;
+    int posicaoAtual;
+    int posicoesLivres;
+    
+    
     
 }
