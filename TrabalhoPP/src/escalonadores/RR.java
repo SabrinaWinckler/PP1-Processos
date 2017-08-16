@@ -5,10 +5,22 @@
  */
 package escalonadores;
 
+import estruturas.ListaCircular;
+import gerais.Processo;
+
 /**
  *
  * @author Lucas
  */
 public class RR {
-    String teste = "testeTesteTeste";
+    
+    ListaCircular<Processo> listaProcessos;
+    
+    public RR(){
+        
+    }
+    
+    
+    
+    
 }
