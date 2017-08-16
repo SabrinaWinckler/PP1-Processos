@@ -141,7 +141,7 @@ public class ListaEncadeada {
 
     public int vazio() {
         if (this.totalDeElementos == 0) {
-            System.out.println("Lista vazia");
+            return 1;
         }
         return 0;
     }
