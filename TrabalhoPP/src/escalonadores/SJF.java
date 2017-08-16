@@ -7,8 +7,6 @@ package escalonadores;
 
 import estruturas.ListaEncadeada;
 import gerais.Processo;
-import java.util.Collections;
-import java.util.List;
 
 /**
  *
@@ -17,52 +15,51 @@ import java.util.List;
  */
 public class SJF {
 
-    private int numeroDeProcessos;
+    private int numeroDeProcessos = 0;
 
-    private ListaEncadeada processos = new ListaEncadeada();
-    private ListaEncadeada naFila = new ListaEncadeada();
-    private ListaEncadeada foraDaFila = new ListaEncadeada();
+    private ListaEncadeada emExecucao = new ListaEncadeada();
+    private ListaEncadeada emEspera = new ListaEncadeada();
+    
+    private ListaEncadeada organizador = new ListaEncadeada();
 
-    public void adicionarProcesso(Processo meuProcesso) {
-        if (meuProcesso.getChegada() == 0) {
-            naFila.adicionar(meuProcesso);
+    public void adicionarProcesso(Processo processo) {
+        if (processo.getChegada() == 0) {
+            emExecucao.adicionar(processo);
         } else {
-            foraDaFila.adicionar(meuProcesso);
+            emEspera.adicionar(processo);
         }
         numeroDeProcessos++;
     }
 
-    public void organizar() {
+    public void executar() {
         int tempo = 0;
-        int iniciarProcesso = 0;
-        
-        Processo agora = null;
-        Processo novo = null;
+
         do {
-            tempo += 1;
-
-            if (naFila.tamanho() != 0) {
-                agora = (Processo) naFila.pegar(0);
-
-                if (agora.getTempo() == 1) {
-                    System.out.println(agora.getNome() + " executou entre o tempo " + iniciarProcesso + " e " + tempo);
-                    iniciarProcesso = tempo;
-                    naFila.remover(0);
-                } else {
-                    agora.executar();
-                }
-            }
-            if (foraDaFila.tamanho() != 0) {
-                novo = (Processo) foraDaFila.pegar(0);
-                if (novo.getChegada() == tempo) {
-                    if (agora.getTempo() > novo.getTempo()) {
-                        System.out.println(agora.getNome() + " executou entre o tempo " + iniciarProcesso + " e " + tempo);
-                        iniciarProcesso = tempo;
+            if (emExecucao.vazio() && !emEspera.vazio()) {
+                for(int i = 0; i < emEspera.tamanho() - 1; i++){
+                                        
+                    Processo processo1 = (Processo) emEspera.pegar(i);
+                    Processo processo2 = (Processo) emEspera.pegar(i + 1);
+                    
+                    if (processo1.getChegada() == tempo && processo2.getChegada() == tempo){
+                        int calc = processo1.getTempo() - processo2.getTempo();
+                        
+                        if (calc > 0){
+                            emExecucao.adicionar(processo1);
+                        } else if (calc < 0) {
+                            emExecucao.adicionar(processo2);
+                        } else {
+                            emExecucao.adicionar(processo1);
+                        }
                     }
-                    naFila.adicionar(novo.clonar());
-                    foraDaFila.remover(0);
                 }
+                
+//                emExecucao.adicionar(emEspera.pegar(0));
+            } else {
+                
             }
-        } while (foraDaFila.tamanho() != 0 || naFila.tamanho() != 0);
+            
+            tempo++;
+        } while (emExecucao.tamanho() != 0 || emEspera.tamanho() != 0);
     }
 }
