@@ -180,7 +180,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-       Processo escalonador = new Processo();
+       Tabela escalonador = new Tabela();
        escalonador.criaJanela();
         
     }//GEN-LAST:event_playActionPerformed
@@ -221,7 +221,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
     }
-private class Processo  {
+private class Tabela  {
     JPanel painelFundo;
     JTable tabela;
     JScrollPane barraRolagem;
@@ -232,10 +232,10 @@ private class Processo  {
         {null,null, null}
     };
     
-    String [] colunas = {"Nome", "Chegada", "Tamanho"}; 
+    String [] colunas = {"Nome", "Chegada", "Tempo"}; 
     
 
-    public Processo() {
+    public Tabela() {
         
     }
     
