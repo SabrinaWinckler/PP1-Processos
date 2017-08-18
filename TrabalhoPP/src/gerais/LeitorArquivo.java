@@ -6,6 +6,7 @@
 package gerais;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import teste.NewClass;
 
 /**
  *
@@ -46,12 +46,11 @@ public class LeitorArquivo {
 
             }
 
-        } catch (IOException ex) {
-            Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LeitorArquivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
-
     }
 
     private ArrayList montarLista(BufferedReader br) {
@@ -77,7 +76,7 @@ public class LeitorArquivo {
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(NewClass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LeitorArquivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         Collections.sort(listaProcessos, new Comparator<Processo>() {

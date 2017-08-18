@@ -139,10 +139,10 @@ public class ListaEncadeada {
         return atual;
     }
 
-    public int vazio() {
+    public boolean vazio() {
         if (this.totalDeElementos == 0) {
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }
