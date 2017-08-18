@@ -6,13 +6,20 @@
 package view;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -39,8 +46,6 @@ public class EscalonadorTela extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         java.awt.Button play = new java.awt.Button();
         painel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
         progresso = new javax.swing.JSlider();
         escolha = new javax.swing.JComboBox<>();
 
@@ -67,34 +72,15 @@ public class EscalonadorTela extends javax.swing.JFrame {
         painel.setBackground(new java.awt.Color(204, 204, 204));
         painel.setFocusCycleRoot(true);
 
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Nome", "Chegada", "Tamanho"
-            }
-        ));
-        jScrollPane1.setViewportView(tabela);
-
         javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
         painel.setLayout(painelLayout);
         painelLayout.setHorizontalGroup(
             painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+            .addGap(0, 258, Short.MAX_VALUE)
         );
         painelLayout.setVerticalGroup(
             painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 121, Short.MAX_VALUE)
         );
 
         escolha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "SJF", "RR" }));
@@ -182,7 +168,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
                         painel.setFocusCycleRoot(true);
                         break;
                     case "SJF":
-                        painel.setBackground(new java.awt.Color(000, 000, 000));
+                        painel.setBackground(new java.awt.Color(000, 030, 000));
                         painel.setFocusCycleRoot(true);
                         break;
                     case "RR":
@@ -194,8 +180,9 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-               tabela.setSelectionBackground(Color.blue);
-               
+       Processo escalonador = new Processo();
+       escalonador.criaJanela();
+        
     }//GEN-LAST:event_playActionPerformed
 
     
@@ -234,14 +221,45 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
     }
+private class Processo  {
+    JPanel painelFundo;
+    JTable tabela;
+    JScrollPane barraRolagem;
+       
+    Object [][] dados = {
+        {null,null, null},
+        {null,null, null},
+        {null,null, null}
+    };
+    
+    String [] colunas = {"Nome", "Chegada", "Tamanho"}; 
+    
+
+    public Processo() {
+        
+    }
+    
+    public void criaJanela(){
+        
+        
+        painel.setLayout(new GridLayout(1, 1));
+        tabela = new JTable(dados, colunas);
+        barraRolagem = new JScrollPane(tabela);
+        painel.add(barraRolagem); 
+        
+        getContentPane().add(painel);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(500, 500);
+        setVisible(true);
+    }
+   
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> escolha;
     private javax.swing.JButton importar;
-    private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private javax.swing.JPanel painel;
     private javax.swing.JSlider progresso;
-    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
