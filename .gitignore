@@ -1,3 +1,5 @@
-/TrabalhoPP/nbproject/private/
-/TrabalhoPP/src/teste/
-/TrabalhoPP/build/
+**/TrabalhoPP/nbproject/private
+**/TrabalhoPP/src/teste
+**/TrabalhoPP/build
+/TrabalhoPP/dist/
+*.class
