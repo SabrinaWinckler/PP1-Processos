@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -28,14 +30,17 @@ public class LeitorArquivo {
         LeitorArquivo leitor = new LeitorArquivo();
 
         listaProcessos = leitor.montarLista(leitor.carregarArquivo());
-
+        
         return listaProcessos;
     }
 
     private BufferedReader carregarArquivo() {
 
         try {
-            JFileChooser chooser = new JFileChooser();
+            JFileChooser chooser = new JFileChooser();            
+            FileFilter filter = new FileNameExtensionFilter("CSV file","csv");
+            chooser.addChoosableFileFilter(filter);
+            chooser.setAcceptAllFileFilterUsed(false);
             int retorno = chooser.showOpenDialog(null);
 
             if (retorno == JFileChooser.APPROVE_OPTION) {

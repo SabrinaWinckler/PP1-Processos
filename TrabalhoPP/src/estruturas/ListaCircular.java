@@ -60,11 +60,19 @@ public class ListaCircular<T> {
         
         objetos[posicaoAtual] = null;
         
+        for(int i = posicaoAtual; i< tamanhoAtual-1;i++){
+            
+            objetos[i] = objetos[i+1];
+            
+        }
         
+        objetos[tamanhoAtual-1] = null;
         
+        tamanhoAtual--;
+        posicaoAtual--;
+        posicaoEscrita--;
         
         return objeto;
-        
         
     }
 
@@ -76,6 +84,6 @@ public class ListaCircular<T> {
 
     public int getPosicaoAtual() {
         return this.posicaoAtual;
-    }   
+    } 
     //</editor-fold>
 }
