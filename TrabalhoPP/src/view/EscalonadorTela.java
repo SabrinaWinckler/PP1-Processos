@@ -5,21 +5,17 @@
  */
 package view;
 
+import escalonadores.FCFS;
+import escalonadores.RR;
+import escalonadores.SJF;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -45,9 +41,9 @@ public class EscalonadorTela extends javax.swing.JFrame {
         importar = new javax.swing.JButton();
         label1 = new java.awt.Label();
         java.awt.Button play = new java.awt.Button();
-        painel = new javax.swing.JPanel();
-        progresso = new javax.swing.JSlider();
         escolha = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -69,20 +65,6 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
 
-        painel.setBackground(new java.awt.Color(204, 204, 204));
-        painel.setFocusCycleRoot(true);
-
-        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
-        painel.setLayout(painelLayout);
-        painelLayout.setHorizontalGroup(
-            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
-        );
-        painelLayout.setVerticalGroup(
-            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
-        );
-
         escolha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "SJF", "RR" }));
         escolha.setSelectedItem(escolha.getSelectedItem());
         escolha.setActionCommand("");
@@ -92,6 +74,21 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
 
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                null, null, null, null
+            }
+        ));
+        tabela.setShowHorizontalLines(false);
+        tabela.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(tabela);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +96,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 450, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -109,13 +106,9 @@ public class EscalonadorTela extends javax.swing.JFrame {
                         .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
                         .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(progresso, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 235, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,22 +116,17 @@ public class EscalonadorTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
-                        .addComponent(importar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(importar)
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(progresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,24 +152,25 @@ public class EscalonadorTela extends javax.swing.JFrame {
                 escolha = (String)this.escolha.getSelectedItem();
                 switch(escolha){
                     case "FCFS":
-                        painel.setBackground(new java.awt.Color(134, 139, 133));
-                        painel.setFocusCycleRoot(true);
+                        tabela.setBackground(new java.awt.Color(134, 020, 100));
+                        tabela.setFocusCycleRoot(true);
                         break;
                     case "SJF":
-                        painel.setBackground(new java.awt.Color(000, 030, 000));
-                        painel.setFocusCycleRoot(true);
+                        tabela.setBackground(new java.awt.Color(000, 030, 100));
+                        tabela.setFocusCycleRoot(true);
                         break;
                     case "RR":
-                        painel.setBackground(new java.awt.Color(005, 060, 100));
-                        painel.setFocusCycleRoot(true);
+                        tabela.setBackground(new java.awt.Color(000, 060, 180));
+                        tabela.setFocusCycleRoot(true);
                         break;
                 }
                 
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-       Tabela escalonador = new Tabela();
-       escalonador.criaJanela();
+        RR rr = new RR();
+        FCFS fcfs = new FCFS();
+        SJF sjf = new SJF();
         
     }//GEN-LAST:event_playActionPerformed
 
@@ -221,45 +210,13 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
     }
-private class Tabela  {
-    JPanel painelFundo;
-    JTable tabela;
-    JScrollPane barraRolagem;
-       
-    Object [][] dados = {
-        {null,null, null},
-        {null,null, null},
-        {null,null, null}
-    };
-    
-    String [] colunas = {"Nome", "Chegada", "Tempo"}; 
-    
 
-    public Tabela() {
-        
-    }
-    
-    public void criaJanela(){
-        
-        
-        painel.setLayout(new GridLayout(1, 1));
-        tabela = new JTable(dados, colunas);
-        barraRolagem = new JScrollPane(tabela);
-        painel.add(barraRolagem); 
-        
-        getContentPane().add(painel);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 500);
-        setVisible(true);
-    }
-   
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> escolha;
     private javax.swing.JButton importar;
+    private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
-    private javax.swing.JPanel painel;
-    private javax.swing.JSlider progresso;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

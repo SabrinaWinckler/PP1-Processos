@@ -31,6 +31,10 @@ public class RR {
 
     }
 
+    public RR() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void executar() {
 
         int tempoClock = 0;
