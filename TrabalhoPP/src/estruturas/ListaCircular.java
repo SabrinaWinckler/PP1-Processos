@@ -38,42 +38,57 @@ public class ListaCircular<T> {
 
     public boolean inserir(T objeto) {
 
-        if (posicaoEscrita == tamanhoMaximo) {
+        if (posicaoEscrita == tamanhoMaximo - 1) {
             posicaoEscrita = 0;
         }
         objetos[posicaoEscrita] = objeto;
         posicaoEscrita++;
         tamanhoAtual++;
         return true;
-        
+
     }
 
-    public T obter() {        
-      
+    public T obter() {
+
         return (T) objetos[posicaoAtual];
-        
+
     }
-    
-    public T remover(){
-        
-        T objeto = (T) objetos[posicaoAtual];
-        
-        objetos[posicaoAtual] = null;
-        
-        for(int i = posicaoAtual; i< tamanhoAtual-1;i++){
-            
-            objetos[i] = objetos[i+1];
-            
+
+    public T remover() {
+
+        if (tamanhoAtual == 0) {
+            return null;
         }
-        
-        objetos[tamanhoAtual-1] = null;
-        
+        T objeto = (T) objetos[posicaoAtual];
+
+        objetos[posicaoAtual] = null;
+
+        for (int i = posicaoAtual; i < tamanhoAtual - 1; i++) {
+
+            objetos[i] = objetos[i + 1];
+
+        }
+
+        objetos[tamanhoAtual - 1] = null;
+
         tamanhoAtual--;
-        posicaoAtual--;
+
+        if (posicaoAtual > 0) {
+            posicaoAtual--;
+        }
         posicaoEscrita--;
-        
+
         return objeto;
-        
+
+    }
+
+    public void proximo() {
+        if (posicaoAtual == tamanhoAtual - 1) {
+            posicaoAtual = 0;
+        } else {
+            posicaoAtual++;
+        }
+
     }
 
     //</editor-fold>
@@ -84,6 +99,6 @@ public class ListaCircular<T> {
 
     public int getPosicaoAtual() {
         return this.posicaoAtual;
-    } 
+    }
     //</editor-fold>
 }
