@@ -5,58 +5,46 @@
  */
 package escalonadores;
 
-import estruturas.ListaEncadeada;
+import estruturas.Fila;
+import gerais.Processo;
+import java.util.ArrayList;
 
 /**
  *
  * @author Lucas
  */
 public class FCFS {
-    
-    public FCFS(){
-        
-    
+
+    ArrayList<Processo> listaEntrada;
+    Fila lista;
+
+    public FCFS(ArrayList listaEntrada) {
+        int tamanhoLista;
+        this.listaEntrada = listaEntrada;
+        tamanhoLista = listaEntrada.size();
+        this.lista = new Fila(tamanhoLista);
     }
-    
-    ListaEncadeada lista = new ListaEncadeada();
-    
-        public void enqueue(Object elemento)
-	// Post: An item is added to the back of the queue.
-	{
-		// Append the item to the end of our linked list.
-		lista.adicionar(elemento);
-	}
 
-	public Object dequeue()
-	// Pre: this.isEmpty() == false
-	// Post: The item at the front of the queue is returned and 
-	//         deleted from the queue. Returns null if precondition
-	//         not met.
-	{
-		// Store a reference to the item at the front of the queue
-		//   so that it does not get garbage collected when we 
-		//   remove it from the list.
-		// Note: list.get(...) returns null if item not found at
-		//   specified index. See postcondition.
-		Object elemento = lista.pegar(1);
-		// Remove the item from the list.
-		// My implementation of the linked list is based on the
-		//   J2SE API reference. In both, elements start at 1,
-		//   unlike arrays which start at 0.
-		lista.remover(1);
-		
-		// Return the item
-		return elemento;
-	}
+    public void executar() {
+        int tempoAtual = 0;
 
-	public Object peek()
-	// Pre: this.isEmpty() == false
-	// Post: The item at the front of the queue is returned and 
-	//         deleted from the queue. Returns null if precondition
-	//         not met.
-	{
-		// This method is very similar to dequeue().
-		// See Queue.dequeue() for comments.
-		return lista.pegar(1);
-	}
+        while (listaEntrada.size() > 0 || lista.getTamanho() > 0) {
+            for (int i = listaEntrada.size()-1; i >= 0; i--) {
+                if(tempoAtual == listaEntrada.get(i).getChegada()){
+                    lista.add(listaEntrada.remove(i));
+                }                
+            }
+            if (lista.getTamanho() > 0) {
+                lista.get().executar();
+                System.out.println(tempoAtual+" "+lista.get().getNome());
+                if (lista.get().getTempo() == 0) {
+                    lista.remove();
+                }
+            }else{
+                System.out.println(tempoAtual+" "+"-");
+            }
+            tempoAtual++;
+        }
+
+    }
 }
