@@ -17,34 +17,40 @@ public class FCFS {
 
     ArrayList<Processo> listaEntrada;
     Fila lista;
+    ArrayList<String> listaPlot;
 
     public FCFS(ArrayList listaEntrada) {
         int tamanhoLista;
         this.listaEntrada = listaEntrada;
         tamanhoLista = listaEntrada.size();
         this.lista = new Fila(tamanhoLista);
+        this.listaPlot = new ArrayList();
     }
 
-    public void executar() {
+    public ArrayList executar() {
         int tempoAtual = 0;
 
         while (listaEntrada.size() > 0 || lista.getTamanho() > 0) {
-            for (int i = listaEntrada.size()-1; i >= 0; i--) {
-                if(tempoAtual == listaEntrada.get(i).getChegada()){
+            for (int i = listaEntrada.size() - 1; i >= 0; i--) {
+                if (tempoAtual == listaEntrada.get(i).getChegada()) {
                     lista.add(listaEntrada.remove(i));
-                }                
+                }
             }
             if (lista.getTamanho() > 0) {
                 lista.get().executar();
-                System.out.println(tempoAtual+" "+lista.get().getNome());
+//                System.out.println(tempoAtual+" "+lista.get().getNome());
+                listaPlot.add(lista.get().getNome());
                 if (lista.get().getTempo() == 0) {
                     lista.remove();
                 }
-            }else{
-                System.out.println(tempoAtual+" "+"-");
+            } else {
+//                System.out.println(tempoAtual + " " + "-");
+                listaPlot.add("-");
             }
             tempoAtual++;
         }
+
+        return listaPlot;
 
     }
 }

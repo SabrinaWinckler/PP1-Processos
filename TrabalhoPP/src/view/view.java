@@ -145,17 +145,17 @@ public class view extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        
+
         this.executar();
         PlotTable.plotAll(jTableGraphic, listaPlot);
-        
+
     }//GEN-LAST:event_jButtonStartActionPerformed
 
     private void jButtonStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepActionPerformed
 
         this.executar();
         PlotTable.plotStep(jTableGraphic, listaPlot);
-        
+
     }//GEN-LAST:event_jButtonStepActionPerformed
 
     private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
@@ -172,7 +172,7 @@ public class view extends javax.swing.JFrame {
         switch ((String) jComboBoxEscalonadores.getSelectedItem()) {
             case "FCFS":
                 fcfs = new FCFS(LeitorArquivo.montarLista(arquivo));
-//                listaPlot = fcfs.executar();
+                listaPlot = fcfs.executar();
                 break;
             case "SJF":
 
