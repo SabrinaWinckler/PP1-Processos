@@ -5,15 +5,10 @@
  */
 package view;
 
-import com.sun.webkit.ColorChooser;
-import escalonadores.RR;
-import escalonadores.SJF;
 import gerais.LeitorArquivo;
-import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.table.TableCellEditor;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -74,24 +69,16 @@ public class EscalonadorTela extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                { new Float(12.0), null},
-                {null, null}
+
             },
             new String [] {
-                "", ""
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Float.class, java.lang.Float.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
+        tabela.setEnabled(false);
         tabela.setShowHorizontalLines(false);
         tabela.setShowVerticalLines(false);
+        tabela.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,7 +152,14 @@ public class EscalonadorTela extends javax.swing.JFrame {
        // RR rr = new RR();
         //FCFS fcfs = new FCFS();
        // SJF sjf = new SJF();
-        
+       
+        DefaultTableModel modelo = new DefaultTableModel();
+        tabela.setModel(modelo);
+        modelo.addColumn("");
+        modelo.addColumn("");
+        modelo.addColumn("");
+        modelo.addRow(new Object[]{2.3, });
+        modelo.addRow(new Object[]{5.3, 6.3});
         
     }//GEN-LAST:event_playActionPerformed
 

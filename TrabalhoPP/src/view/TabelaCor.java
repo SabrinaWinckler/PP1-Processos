@@ -18,7 +18,7 @@ public class TabelaCor extends JTable{
   public Component prepareRenderer(TableCellRenderer render, int row, int colum){
       Component component = super.prepareRenderer(render, row, colum);
       component.setBackground(Color.WHITE);
-      if ((Float.class.equals(this.getColumnClass(colum))) && (getValueAt(row, colum)!=null)){
+      if ((getValueAt(row, colum)!=null)){
         float valor = Float.parseFloat(getValueAt(row, colum).toString());
         component.setBackground(Color.blue);
       }
