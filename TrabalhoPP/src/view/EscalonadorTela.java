@@ -5,6 +5,8 @@
  */
 package view;
 
+import escalonadores.RR;
+import escalonadores.SJF;
 import gerais.LeitorArquivo;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -48,6 +50,8 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
 
+        label1.setFont(new java.awt.Font("Eras Medium ITC", 0, 24)); // NOI18N
+        label1.setName(""); // NOI18N
         label1.setText("Escalonadores");
 
         play.setActionCommand("Play");
@@ -86,39 +90,35 @@ public class EscalonadorTela extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 450, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(importar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(importar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
+                        .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(importar)
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(20, 20, 20)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(19, 19, 19)
+                        .addComponent(importar)
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(escolha)
+                            .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,36 +131,22 @@ public class EscalonadorTela extends javax.swing.JFrame {
     private void escolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolhaActionPerformed
                 String escolha; 
                 escolha = (String)this.escolha.getSelectedItem();
-                switch(escolha){
-                    case "FCFS":
-                        tabela.setBackground(new java.awt.Color(134, 020, 100));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                    case "SJF":
-                        tabela.setBackground(new java.awt.Color(000, 030, 100));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                    case "RR":
-                        tabela.setBackground(new java.awt.Color(000, 060, 180));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                }
                 
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-       // RR rr = new RR();
-        //FCFS fcfs = new FCFS();
-       // SJF sjf = new SJF();
+      // RR rr = new RR();
+       //FCFS fcfs = new FCFS();
+      // SJF sjf = new SJF();
        
         DefaultTableModel modelo = new DefaultTableModel();
         tabela.setModel(modelo);
-        modelo.addColumn("");
-        modelo.addColumn("");
-        modelo.addColumn("");
-        modelo.addRow(new Object[]{2.3, });
-        modelo.addRow(new Object[]{5.3, 6.3});
-        
+        for(int i=0; i<5; i++){
+            modelo.addColumn("");
+            for(int j = i; j<5;j++){
+                modelo.addRow(new Object[]{null, " ", " "});
+            }
+        }
     }//GEN-LAST:event_playActionPerformed
 
     
