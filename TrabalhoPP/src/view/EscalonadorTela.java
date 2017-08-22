@@ -5,17 +5,12 @@
  */
 package view;
 
-import escalonadores.FCFS;
 import escalonadores.RR;
 import escalonadores.SJF;
-import java.awt.Color;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
+import gerais.LeitorArquivo;
+import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,7 +38,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
         java.awt.Button play = new java.awt.Button();
         escolha = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabela = new view.TabelaCor();//javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -55,6 +50,8 @@ public class EscalonadorTela extends javax.swing.JFrame {
             }
         });
 
+        label1.setFont(new java.awt.Font("Eras Medium ITC", 0, 24)); // NOI18N
+        label1.setName(""); // NOI18N
         label1.setText("Escalonadores");
 
         play.setActionCommand("Play");
@@ -76,17 +73,16 @@ public class EscalonadorTela extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                null, null, null, null
+
             }
         ));
+        tabela.setEnabled(false);
         tabela.setShowHorizontalLines(false);
         tabela.setShowVerticalLines(false);
+        tabela.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,84 +90,63 @@ public class EscalonadorTela extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 450, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(importar, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(importar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
+                        .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(importar)
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(escolha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(20, 20, 20)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(19, 19, 19)
+                        .addComponent(importar)
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(escolha)
+                            .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
-        try {
-     JFileChooser chooser = new JFileChooser();
-    // chooser.setFileFilter(new FileNameExtensionFilter("Apenas csv"));
-     int retorno = chooser.showOpenDialog(null);
- 
-     if (retorno == JFileChooser.APPROVE_OPTION) {
-       FileReader reader = new FileReader(chooser.getSelectedFile());
-       JOptionPane.showMessageDialog(null, "Arquivo importado com sucesso");
-     }
-   }    catch (FileNotFoundException ex) {
-            Logger.getLogger(EscalonadorTela.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ArrayList listaProcessos = LeitorArquivo.lerArquivo();
     }//GEN-LAST:event_importarActionPerformed
 
     private void escolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolhaActionPerformed
                 String escolha; 
                 escolha = (String)this.escolha.getSelectedItem();
-                switch(escolha){
-                    case "FCFS":
-                        tabela.setBackground(new java.awt.Color(134, 020, 100));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                    case "SJF":
-                        tabela.setBackground(new java.awt.Color(000, 030, 100));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                    case "RR":
-                        tabela.setBackground(new java.awt.Color(000, 060, 180));
-                        tabela.setFocusCycleRoot(true);
-                        break;
-                }
                 
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-        RR rr = new RR();
-        FCFS fcfs = new FCFS();
-        SJF sjf = new SJF();
-        
+      // RR rr = new RR();
+       //FCFS fcfs = new FCFS();
+      // SJF sjf = new SJF();
+       
+        DefaultTableModel modelo = new DefaultTableModel();
+        tabela.setModel(modelo);
+        for(int i=0; i<5; i++){
+            modelo.addColumn("");
+            for(int j = i; j<5;j++){
+                modelo.addRow(new Object[]{null, " ", " "});
+            }
+        }
     }//GEN-LAST:event_playActionPerformed
 
     
