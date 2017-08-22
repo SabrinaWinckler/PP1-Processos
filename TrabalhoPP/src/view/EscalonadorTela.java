@@ -5,17 +5,15 @@
  */
 package view;
 
-import escalonadores.FCFS;
+import com.sun.webkit.ColorChooser;
 import escalonadores.RR;
 import escalonadores.SJF;
+import gerais.LeitorArquivo;
 import java.awt.Color;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
+import java.util.ArrayList;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.table.TableCellEditor;
 
 /**
  *
@@ -43,7 +41,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
         java.awt.Button play = new java.awt.Button();
         escolha = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabela = new view.TabelaCor();//javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -76,15 +74,22 @@ public class EscalonadorTela extends javax.swing.JFrame {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                { new Float(12.0), null},
+                {null, null}
             },
             new String [] {
-                null, null, null, null
+                "", ""
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Float.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tabela.setShowHorizontalLines(false);
         tabela.setShowVerticalLines(false);
         jScrollPane1.setViewportView(tabela);
@@ -133,18 +138,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
-        try {
-     JFileChooser chooser = new JFileChooser();
-    // chooser.setFileFilter(new FileNameExtensionFilter("Apenas csv"));
-     int retorno = chooser.showOpenDialog(null);
- 
-     if (retorno == JFileChooser.APPROVE_OPTION) {
-       FileReader reader = new FileReader(chooser.getSelectedFile());
-       JOptionPane.showMessageDialog(null, "Arquivo importado com sucesso");
-     }
-   }    catch (FileNotFoundException ex) {
-            Logger.getLogger(EscalonadorTela.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ArrayList listaProcessos = LeitorArquivo.lerArquivo();
     }//GEN-LAST:event_importarActionPerformed
 
     private void escolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolhaActionPerformed
@@ -168,9 +162,10 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }//GEN-LAST:event_escolhaActionPerformed
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-        RR rr = new RR();
-        FCFS fcfs = new FCFS();
-        SJF sjf = new SJF();
+       // RR rr = new RR();
+        //FCFS fcfs = new FCFS();
+       // SJF sjf = new SJF();
+        
         
     }//GEN-LAST:event_playActionPerformed
 
