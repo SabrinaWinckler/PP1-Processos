@@ -125,7 +125,7 @@ public class EscalonadorTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
-        ArrayList listaProcessos = LeitorArquivo.lerArquivo();
+         
     }//GEN-LAST:event_importarActionPerformed
 
     private void escolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolhaActionPerformed

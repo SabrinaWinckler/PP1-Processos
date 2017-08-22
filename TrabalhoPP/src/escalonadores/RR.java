@@ -7,6 +7,7 @@ package escalonadores;
 
 import estruturas.ListaCircular;
 import gerais.Processo;
+import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class RR {
     private int tamanhoQuantum;
     private int tempoClock;
     private int quantum;
+    private ArrayList<String> listaPlot;
 
     public RR(ArrayList listaEntrada, int tamanhoQuantum) {
 
@@ -30,19 +32,14 @@ public class RR {
         quantidadeProcessos = listaEntrada.size();
 
         this.listaProcessos = new ListaCircular(quantidadeProcessos);
+        this.listaPlot = new ArrayList();
 
         tempoClock = 0;
         quantum = 0;
 
     }
 
-    public RR() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void executar() {
-//        int tempoClock = 0;
-//        int quantum = 0;
+    public ArrayList executar() {
 
         while (listaProcessos.getTamanho() > 0 || listaEntrada.size() > 0) {
 
@@ -54,14 +51,15 @@ public class RR {
 
             if (listaProcessos.getTamanho() > 0) {
                 listaProcessos.obter().executar();
-                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
+                listaPlot.add(listaProcessos.obter().getNome());
+//                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
                 if (listaProcessos.obter().getTempo() == 0) {
                     listaProcessos.remover();
                 }
                 quantum++;
 
             } else {
-                System.out.println(tempoClock + " " + "-");
+                listaPlot.add("-");
                 quantum = 0;
             }
 
@@ -76,6 +74,8 @@ public class RR {
             }
 
         }
+        
+        return listaPlot;
 
     }
 
