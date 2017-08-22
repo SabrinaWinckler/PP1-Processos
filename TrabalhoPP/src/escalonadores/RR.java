@@ -18,6 +18,8 @@ public class RR {
     private ListaCircular<Processo> listaProcessos;
     private ArrayList<Processo> listaEntrada;
     private int tamanhoQuantum;
+    private int tempoClock;
+    private int quantum;
 
     public RR(ArrayList listaEntrada, int tamanhoQuantum) {
 
@@ -29,6 +31,9 @@ public class RR {
 
         this.listaProcessos = new ListaCircular(quantidadeProcessos);
 
+        tempoClock = 0;
+        quantum = 0;
+
     }
 
     public RR() {
@@ -36,13 +41,12 @@ public class RR {
     }
 
     public void executar() {
-
-        int tempoClock = 0;
-        int quantum = 0;
+//        int tempoClock = 0;
+//        int quantum = 0;
 
         while (listaProcessos.getTamanho() > 0 || listaEntrada.size() > 0) {
 
-            for (int i = listaEntrada.size()-1; i >= 0 ; i--) {
+            for (int i = listaEntrada.size() - 1; i >= 0; i--) {
                 if (listaEntrada.get(i).getChegada() == tempoClock) {
                     listaProcessos.inserir(listaEntrada.remove(i));
                 }
@@ -50,24 +54,61 @@ public class RR {
 
             if (listaProcessos.getTamanho() > 0) {
                 listaProcessos.obter().executar();
-                System.out.println(tempoClock +" "+listaProcessos.obter().getNome() + " ");
+                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
                 if (listaProcessos.obter().getTempo() == 0) {
                     listaProcessos.remover();
                 }
                 quantum++;
 
             } else {
-                System.out.println(tempoClock +" "+"-");
+                System.out.println(tempoClock + " " + "-");
                 quantum = 0;
             }
-            
+
             tempoClock++;
 
             if (quantum == this.tamanhoQuantum) {
                 quantum = 0;
             }
 
-            if (quantum == 0 && listaProcessos.getTamanho()>0) {
+            if (quantum == 0 && listaProcessos.getTamanho() > 0) {
+                listaProcessos.proximo();
+            }
+
+        }
+
+    }
+
+    public void executarStep() {
+
+        if (listaProcessos.getTamanho() > 0 || listaEntrada.size() > 0) {
+
+            for (int i = listaEntrada.size() - 1; i >= 0; i--) {
+                if (listaEntrada.get(i).getChegada() == tempoClock) {
+                    listaProcessos.inserir(listaEntrada.remove(i));
+                }
+            }
+
+            if (listaProcessos.getTamanho() > 0) {
+                listaProcessos.obter().executar();
+                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
+                if (listaProcessos.obter().getTempo() == 0) {
+                    listaProcessos.remover();
+                }
+                quantum++;
+
+            } else {
+                System.out.println(tempoClock + " " + "-");
+                quantum = 0;
+            }
+
+            tempoClock++;
+
+            if (quantum == this.tamanhoQuantum) {
+                quantum = 0;
+            }
+
+            if (quantum == 0 && listaProcessos.getTamanho() > 0) {
                 listaProcessos.proximo();
             }
 

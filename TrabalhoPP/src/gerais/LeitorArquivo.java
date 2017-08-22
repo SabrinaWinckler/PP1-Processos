@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -30,15 +31,15 @@ public class LeitorArquivo {
         LeitorArquivo leitor = new LeitorArquivo();
 
         listaProcessos = leitor.montarLista(leitor.carregarArquivo());
-        
+
         return listaProcessos;
     }
 
     private BufferedReader carregarArquivo() {
 
         try {
-            JFileChooser chooser = new JFileChooser();            
-            FileFilter filter = new FileNameExtensionFilter("CSV file","csv");
+            JFileChooser chooser = new JFileChooser();
+            FileFilter filter = new FileNameExtensionFilter("CSV file", "csv");
             chooser.addChoosableFileFilter(filter);
             chooser.setAcceptAllFileFilterUsed(false);
             int retorno = chooser.showOpenDialog(null);
@@ -67,30 +68,33 @@ public class LeitorArquivo {
         int chegada;
         int tamanho;
 
-        try {
+        if (br == null) {
+            JOptionPane.showMessageDialog(null,"Arquivo Não Selecionado");
+        } else {
+            try {
 
-            while ((processoString = br.readLine()) != null) {
-                processoStringArray = processoString.split(",");
+                while ((processoString = br.readLine()) != null) {
+                    processoStringArray = processoString.split(",");
 
-                nome = processoStringArray[0];
-                chegada = Integer.parseInt(processoStringArray[1]);
-                tamanho = Integer.parseInt(processoStringArray[2]);
+                    nome = processoStringArray[0];
+                    chegada = Integer.parseInt(processoStringArray[1]);
+                    tamanho = Integer.parseInt(processoStringArray[2]);
 
-                listaProcessos.add(new Processo(nome, chegada, tamanho));
+                    listaProcessos.add(new Processo(nome, chegada, tamanho));
 
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(LeitorArquivo.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } catch (IOException ex) {
-            Logger.getLogger(LeitorArquivo.class.getName()).log(Level.SEVERE, null, ex);
+            Collections.sort(listaProcessos, new Comparator<Processo>() {
+                @Override
+                public int compare(Processo o1, Processo o2) {
+                    return o1.getChegada() - o2.getChegada();
+                }
+            });
         }
-
-        Collections.sort(listaProcessos, new Comparator<Processo>() {
-            @Override
-            public int compare(Processo o1, Processo o2) {
-                return o1.getChegada() - o2.getChegada();
-            }
-        });
-
         return listaProcessos;
     }
 
