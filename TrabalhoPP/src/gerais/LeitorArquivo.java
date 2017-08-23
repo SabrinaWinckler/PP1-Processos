@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class LeitorArquivo {
 
     private static File arquivo;
-    public static int quantidadeProcessos;
+    private static int quantidadeProcessos;
 
     public static File carregarArquivo() {
 
@@ -92,6 +92,10 @@ public class LeitorArquivo {
         LeitorArquivo.quantidadeProcessos = listaProcessos.size();
 
         return listaProcessos;
+    }
+
+    public static int getQuantidadeProcessos() {
+        return quantidadeProcessos;
     }
 
 }

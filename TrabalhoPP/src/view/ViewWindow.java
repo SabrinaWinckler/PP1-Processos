@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * @author Lucas
  */
 public class ViewWindow extends javax.swing.JFrame {
-    
+
     private File arquivo;
     private FCFS fcfs;
     private SJF sjf;
     private RR rr;
-    private ArrayList<String> listaPlot;    
+    private ArrayList<String> listaPlot;
 
     /**
      * Creates new form view
@@ -31,6 +31,7 @@ public class ViewWindow extends javax.swing.JFrame {
         initComponents();
         jButtonStart.setEnabled(false);
         jButtonStep.setEnabled(false);
+        jButtonStepBack.setEnabled(false);
     }
 
     /**
@@ -48,8 +49,10 @@ public class ViewWindow extends javax.swing.JFrame {
         jTableGraphic = new javax.swing.JTable();
         jButtonStep = new javax.swing.JButton();
         jButtonImportar = new javax.swing.JButton();
+        jButtonStepBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButtonStart.setText("Start");
         jButtonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -59,34 +62,27 @@ public class ViewWindow extends javax.swing.JFrame {
         });
 
         jComboBoxEscalonadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "SJF", "RR" }));
+        jComboBoxEscalonadores.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxEscalonadoresItemStateChanged(evt);
+            }
+        });
 
         jTableGraphic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jTableGraphic.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTableGraphic.setFocusable(false);
         jTableGraphic.setShowHorizontalLines(false);
         jTableGraphic.setShowVerticalLines(false);
         jScrollPane1.setViewportView(jTableGraphic);
 
-        jButtonStep.setText("Step");
+        jButtonStep.setText("|>");
         jButtonStep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStepActionPerformed(evt);
@@ -100,6 +96,13 @@ public class ViewWindow extends javax.swing.JFrame {
             }
         });
 
+        jButtonStepBack.setText("<|");
+        jButtonStepBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStepBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,29 +110,34 @@ public class ViewWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jComboBoxEscalonadores, 0, 73, Short.MAX_VALUE)
-                        .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonImportar)
-                    .addComponent(jButtonStep, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonImportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxEscalonadores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonStepBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonStep)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBoxEscalonadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonImportar)
-                        .addGap(60, 60, 60)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonStart)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonStep)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonStep)
+                            .addComponent(jButtonStepBack)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -137,16 +145,22 @@ public class ViewWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-
+        PlotTable.reset();        
         this.executar();
-        PlotTable.plotAll(jTableGraphic, listaPlot, LeitorArquivo.quantidadeProcessos);
+        PlotTable.plotAll(jTableGraphic, listaPlot, LeitorArquivo.getQuantidadeProcessos());
+        jButtonStepBack.setEnabled(true);
+        jButtonStep.setEnabled(false);
 
     }//GEN-LAST:event_jButtonStartActionPerformed
 
     private void jButtonStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepActionPerformed
 
         this.executar();
-        PlotTable.plotStep(jTableGraphic, listaPlot, LeitorArquivo.quantidadeProcessos);
+        PlotTable.plotStep(jTableGraphic, listaPlot, LeitorArquivo.getQuantidadeProcessos());
+        jButtonStepBack.setEnabled(true);
+        if(PlotTable.getStep() == listaPlot.size()){
+            jButtonStep.setEnabled(false);
+        }
 
     }//GEN-LAST:event_jButtonStepActionPerformed
 
@@ -155,6 +169,21 @@ public class ViewWindow extends javax.swing.JFrame {
         jButtonStart.setEnabled(true);
         jButtonStep.setEnabled(true);
     }//GEN-LAST:event_jButtonImportarActionPerformed
+
+    private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
+
+        PlotTable.stepBack(jTableGraphic, listaPlot);
+        if (PlotTable.getStep() == 0) {
+            jButtonStepBack.setEnabled(false);
+        }
+        jButtonStep.setEnabled(true);
+
+
+    }//GEN-LAST:event_jButtonStepBackActionPerformed
+
+    private void jComboBoxEscalonadoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEscalonadoresItemStateChanged
+        PlotTable.reset();
+    }//GEN-LAST:event_jComboBoxEscalonadoresItemStateChanged
 
     private void executar() {
         switch ((String) jComboBoxEscalonadores.getSelectedItem()) {
@@ -214,6 +243,7 @@ public class ViewWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButtonImportar;
     private javax.swing.JButton jButtonStart;
     private javax.swing.JButton jButtonStep;
+    private javax.swing.JButton jButtonStepBack;
     private javax.swing.JComboBox<String> jComboBoxEscalonadores;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableGraphic;
