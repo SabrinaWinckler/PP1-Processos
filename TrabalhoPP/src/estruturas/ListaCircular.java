@@ -33,7 +33,7 @@ public class ListaCircular<T> {
     //<editor-fold defaultstate="collapsed" desc="Metodos Publicos">    
     public boolean inserir(T objeto) {
 
-        if (posicaoEscrita == tamanhoMaximo - 1) {
+        if (posicaoEscrita == tamanhoMaximo) {
             posicaoEscrita = 0;
         }
         objetos[posicaoEscrita] = objeto;
