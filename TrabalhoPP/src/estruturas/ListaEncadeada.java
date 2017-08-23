@@ -8,13 +8,13 @@ package estruturas;
 /**
  * @author Gustavo Bittencourt Satheler
  */
-public class ListaEncadeada {
+public class ListaEncadeada<T> {
 
     private Celula primeira;
     private Celula ultima;
     private int totalDeElementos;
 
-    public void adicionar(Object elemento) {
+    public void adicionar(T elemento) {
         if (this.totalDeElementos == 0) {
             this.adicionarNoComeco(elemento);
         } else {
@@ -26,7 +26,7 @@ public class ListaEncadeada {
         }
     }
 
-    public void adicionar(int posicao, Object elemento) {
+    public void adicionar(int posicao, T elemento) {
         if (posicao == 0) { // No começo.
             this.adicionarNoComeco(elemento);
         } else if (posicao == this.totalDeElementos) { // No fim.
@@ -42,8 +42,8 @@ public class ListaEncadeada {
         }
     }
 
-    public Object pegar(int posicao) {
-        return this.pegarCelula(posicao).getElemento();
+    public T pegar(int posicao) {
+        return (T)this.pegarCelula(posicao).getElemento();
     }
 
     public void remover(int posicao) {
@@ -71,7 +71,7 @@ public class ListaEncadeada {
         return this.totalDeElementos;
     }
 
-    public boolean contem(Object elemento) {
+    public boolean contem(T elemento) {
         Celula atual = this.primeira;
 
         while (atual != null) {
@@ -83,7 +83,7 @@ public class ListaEncadeada {
         return false;
     }
 
-    public void adicionarNoComeco(Object elemento) {
+    public void adicionarNoComeco(T elemento) {
         if (this.totalDeElementos == 0) {
             Celula nova = new Celula(elemento);
             this.primeira = nova;

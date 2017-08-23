@@ -30,12 +30,7 @@ public class ListaCircular<T> {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Metodos Publicos">
-    public void resetar() {
-        this.posicaoEscrita = 0;
-        this.tamanhoAtual = 0;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="Metodos Publicos">    
     public boolean inserir(T objeto) {
 
         if (posicaoEscrita == tamanhoMaximo - 1) {
