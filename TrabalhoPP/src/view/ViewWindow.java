@@ -9,8 +9,14 @@ import escalonadores.FCFS;
 import escalonadores.RR;
 import escalonadores.SJF;
 import gerais.LeitorArquivo;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -32,6 +38,8 @@ public class ViewWindow extends javax.swing.JFrame {
         jButtonStart.setEnabled(false);
         jButtonStep.setEnabled(false);
         jButtonStepBack.setEnabled(false);
+        jTableGraphic.getTableHeader().setEnabled(false);
+
     }
 
     /**
@@ -77,7 +85,10 @@ public class ViewWindow extends javax.swing.JFrame {
             }
         ));
         jTableGraphic.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTableGraphic.setEnabled(false);
         jTableGraphic.setFocusable(false);
+        jTableGraphic.setGridColor(new java.awt.Color(255, 255, 255));
+        jTableGraphic.setRequestFocusEnabled(false);
         jTableGraphic.setShowHorizontalLines(false);
         jTableGraphic.setShowVerticalLines(false);
         jScrollPane1.setViewportView(jTableGraphic);
@@ -145,7 +156,7 @@ public class ViewWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        PlotTable.reset();        
+        PlotTable.reset();
         this.executar();
         PlotTable.plotAll(jTableGraphic, listaPlot, LeitorArquivo.getQuantidadeProcessos());
         jButtonStepBack.setEnabled(true);
@@ -158,7 +169,7 @@ public class ViewWindow extends javax.swing.JFrame {
         this.executar();
         PlotTable.plotStep(jTableGraphic, listaPlot, LeitorArquivo.getQuantidadeProcessos());
         jButtonStepBack.setEnabled(true);
-        if(PlotTable.getStep() == listaPlot.size()){
+        if (PlotTable.getStep() == listaPlot.size()) {
             jButtonStep.setEnabled(false);
         }
 
@@ -166,13 +177,15 @@ public class ViewWindow extends javax.swing.JFrame {
 
     private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
         arquivo = LeitorArquivo.carregarArquivo();
-        jButtonStart.setEnabled(true);
-        jButtonStep.setEnabled(true);
+        if (arquivo != null) {
+            jButtonStart.setEnabled(true);
+            jButtonStep.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonImportarActionPerformed
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
 
-        PlotTable.stepBack(jTableGraphic, listaPlot);
+        PlotTable.stepBack(jTableGraphic, listaPlot, LeitorArquivo.getQuantidadeProcessos());
         if (PlotTable.getStep() == 0) {
             jButtonStepBack.setEnabled(false);
         }
@@ -183,6 +196,12 @@ public class ViewWindow extends javax.swing.JFrame {
 
     private void jComboBoxEscalonadoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEscalonadoresItemStateChanged
         PlotTable.reset();
+        jTableGraphic.setModel(new DefaultTableModel());
+        jButtonStepBack.setEnabled(false);
+        if (arquivo != null) {
+            jButtonStep.setEnabled(true);
+        }
+
     }//GEN-LAST:event_jComboBoxEscalonadoresItemStateChanged
 
     private void executar() {

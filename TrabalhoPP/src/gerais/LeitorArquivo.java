@@ -47,8 +47,10 @@ public class LeitorArquivo {
 
         if (arquivo == null) {
             JOptionPane.showMessageDialog(null, "Arquivo Não Selecionado");
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum arquivo foi selecionado será mantido o anterior");
         }
-        JOptionPane.showMessageDialog(null, "Nenhum arquivo foi selecionado será mantido o anterior");
+        
 
         return arquivo;
     }
