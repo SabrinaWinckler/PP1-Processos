@@ -7,7 +7,6 @@ package gerais;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +25,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class LeitorArquivo {
 
-    static File arquivo;
+    private static File arquivo;
+    public static int quantidadeProcessos;
 
     public static File carregarArquivo() {
 
@@ -88,6 +88,8 @@ public class LeitorArquivo {
                 return o1.getChegada() - o2.getChegada();
             }
         });
+
+        LeitorArquivo.quantidadeProcessos = listaProcessos.size();
 
         return listaProcessos;
     }

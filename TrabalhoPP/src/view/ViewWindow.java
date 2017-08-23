@@ -9,29 +9,25 @@ import escalonadores.FCFS;
 import escalonadores.RR;
 import escalonadores.SJF;
 import gerais.LeitorArquivo;
-import gerais.Processo;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  *
  * @author Lucas
  */
-public class view extends javax.swing.JFrame {
-
-    private ArrayList<Processo> listaProcessos;
+public class ViewWindow extends javax.swing.JFrame {
+    
     private File arquivo;
     private FCFS fcfs;
     private SJF sjf;
     private RR rr;
-    private ArrayList<String> listaPlot;
-    private Stack<String> listaAuxiliarPlot;
+    private ArrayList<String> listaPlot;    
 
     /**
      * Creates new form view
      */
-    public view() {
+    public ViewWindow() {
         initComponents();
         jButtonStart.setEnabled(false);
         jButtonStep.setEnabled(false);
@@ -63,11 +59,6 @@ public class view extends javax.swing.JFrame {
         });
 
         jComboBoxEscalonadores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "SJF", "RR" }));
-        jComboBoxEscalonadores.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxEscalonadoresItemStateChanged(evt);
-            }
-        });
 
         jTableGraphic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,6 +80,7 @@ public class view extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableGraphic.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTableGraphic.setFocusable(false);
         jTableGraphic.setShowHorizontalLines(false);
         jTableGraphic.setShowVerticalLines(false);
@@ -138,7 +130,7 @@ public class view extends javax.swing.JFrame {
                         .addComponent(jButtonStart)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonStep)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,14 +139,14 @@ public class view extends javax.swing.JFrame {
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
 
         this.executar();
-        PlotTable.plotAll(jTableGraphic, listaPlot);
+        PlotTable.plotAll(jTableGraphic, listaPlot, LeitorArquivo.quantidadeProcessos);
 
     }//GEN-LAST:event_jButtonStartActionPerformed
 
     private void jButtonStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepActionPerformed
 
         this.executar();
-        PlotTable.plotStep(jTableGraphic, listaPlot);
+        PlotTable.plotStep(jTableGraphic, listaPlot, LeitorArquivo.quantidadeProcessos);
 
     }//GEN-LAST:event_jButtonStepActionPerformed
 
@@ -163,10 +155,6 @@ public class view extends javax.swing.JFrame {
         jButtonStart.setEnabled(true);
         jButtonStep.setEnabled(true);
     }//GEN-LAST:event_jButtonImportarActionPerformed
-
-    private void jComboBoxEscalonadoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEscalonadoresItemStateChanged
-        listaProcessos = null;
-    }//GEN-LAST:event_jComboBoxEscalonadoresItemStateChanged
 
     private void executar() {
         switch ((String) jComboBoxEscalonadores.getSelectedItem()) {
@@ -201,20 +189,23 @@ public class view extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new view().setVisible(true);
+                new ViewWindow().setVisible(true);
             }
         });
     }
