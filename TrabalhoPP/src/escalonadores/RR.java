@@ -7,7 +7,6 @@ package escalonadores;
 
 import estruturas.ListaCircular;
 import gerais.Processo;
-import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -50,13 +49,17 @@ public class RR {
             }
 
             if (listaProcessos.getTamanho() > 0) {
+                if(tempoClock == 26){
+                    int teste = 0;
+                }
                 listaProcessos.obter().executar();
                 listaPlot.add(listaProcessos.obter().getNome());
-//                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
+                quantum++;
                 if (listaProcessos.obter().getTempo() == 0) {
                     listaProcessos.remover();
+                    quantum = 0;
                 }
-                quantum++;
+                
 
             } else {
                 listaPlot.add("-");
@@ -74,45 +77,8 @@ public class RR {
             }
 
         }
-        
+
         return listaPlot;
-
-    }
-
-    public void executarStep() {
-
-        if (listaProcessos.getTamanho() > 0 || listaEntrada.size() > 0) {
-
-            for (int i = listaEntrada.size() - 1; i >= 0; i--) {
-                if (listaEntrada.get(i).getChegada() == tempoClock) {
-                    listaProcessos.inserir(listaEntrada.remove(i));
-                }
-            }
-
-            if (listaProcessos.getTamanho() > 0) {
-                listaProcessos.obter().executar();
-                System.out.println(tempoClock + " " + listaProcessos.obter().getNome() + " ");
-                if (listaProcessos.obter().getTempo() == 0) {
-                    listaProcessos.remover();
-                }
-                quantum++;
-
-            } else {
-                System.out.println(tempoClock + " " + "-");
-                quantum = 0;
-            }
-
-            tempoClock++;
-
-            if (quantum == this.tamanhoQuantum) {
-                quantum = 0;
-            }
-
-            if (quantum == 0 && listaProcessos.getTamanho() > 0) {
-                listaProcessos.proximo();
-            }
-
-        }
 
     }
 

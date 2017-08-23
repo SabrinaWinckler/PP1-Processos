@@ -76,7 +76,10 @@ public class ListaCircular<T> {
         if (posicaoAtual > 0) {
             posicaoAtual--;
         }
-        posicaoEscrita--;
+        if(posicaoEscrita > 0){
+            posicaoEscrita--;
+        }
+        
 
         return objeto;
 

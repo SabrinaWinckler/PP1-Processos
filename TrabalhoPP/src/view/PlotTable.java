@@ -56,7 +56,7 @@ public class PlotTable {
     static void plotStep(JTable table, ArrayList<String> listaPlot, int quantidadeProcessos) {
 
         if (model == null) {
-            model = new DefaultTableModel(quantidadeProcessos+1, listaPlot.size());
+            model = new DefaultTableModel(quantidadeProcessos + 1, listaPlot.size());
             table.setModel(model);
             layoutHeader(table, listaPlot);
 
@@ -90,7 +90,7 @@ public class PlotTable {
                 model.setValueAt(null, 0, step);
             } else {
                 int j = quantidadeProcessos - ordemProcessos.indexOf(listaPlot.get(step)) - 1;
-                model.setValueAt(null, j, step);                
+                model.setValueAt(null, j, step);
             }
             model.setValueAt(null, quantidadeProcessos, step);
         }
@@ -106,9 +106,21 @@ public class PlotTable {
         return step;
     }
 
-    private static void layoutHeader(JTable table, ArrayList listaPlot) {
+    private static void layoutHeader(JTable table, ArrayList<String> listaPlot) {
+
+        int tamanho1;
+        int tamanho2;
+
         for (int i = 0; i < listaPlot.size(); i++) {
-            table.getColumnModel().getColumn(i).setPreferredWidth(String.valueOf(i).length() * 20);
+
+            tamanho1 = String.valueOf(i).length() * 20;
+            tamanho2 = listaPlot.get(i).length() * 20;
+            if (tamanho1 > tamanho2) {
+                table.getColumnModel().getColumn(i).setPreferredWidth(tamanho1);
+            }else{
+                table.getColumnModel().getColumn(i).setPreferredWidth(tamanho2);
+            }
+
             JTableHeader header = table.getTableHeader();
             TableColumnModel colMod = header.getColumnModel();
             TableColumn tabCol = colMod.getColumn(i);

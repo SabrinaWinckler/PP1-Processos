@@ -9,20 +9,15 @@ import escalonadores.FCFS;
 import escalonadores.RR;
 import escalonadores.SJF;
 import gerais.LeitorArquivo;
-import java.awt.Color;
-import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.JComponent;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author Lucas
  */
-public class ViewWindow extends javax.swing.JFrame {
+public class EscalonadorTela extends javax.swing.JFrame {
 
     private File arquivo;
     private FCFS fcfs;
@@ -33,7 +28,7 @@ public class ViewWindow extends javax.swing.JFrame {
     /**
      * Creates new form view
      */
-    public ViewWindow() {
+    public EscalonadorTela() {
         initComponents();
         jButtonStart.setEnabled(false);
         jButtonStep.setEnabled(false);
@@ -62,7 +57,7 @@ public class ViewWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jButtonStart.setText("Start");
+        jButtonStart.setText("Play All");
         jButtonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStartActionPerformed(evt);
@@ -181,6 +176,9 @@ public class ViewWindow extends javax.swing.JFrame {
             jButtonStart.setEnabled(true);
             jButtonStep.setEnabled(true);
         }
+        PlotTable.reset();
+        jTableGraphic.setModel(new DefaultTableModel());
+
     }//GEN-LAST:event_jButtonImportarActionPerformed
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
@@ -211,7 +209,8 @@ public class ViewWindow extends javax.swing.JFrame {
                 listaPlot = fcfs.executar();
                 break;
             case "SJF":
-
+                sjf = new SJF(LeitorArquivo.montarLista(arquivo));
+                listaPlot = sjf.executar();
                 break;
             case "RR":
                 rr = new RR(LeitorArquivo.montarLista(arquivo), 2);
@@ -237,14 +236,18 @@ public class ViewWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EscalonadorTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EscalonadorTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EscalonadorTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EscalonadorTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -253,7 +256,7 @@ public class ViewWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewWindow().setVisible(true);
+                new EscalonadorTela().setVisible(true);
             }
         });
     }

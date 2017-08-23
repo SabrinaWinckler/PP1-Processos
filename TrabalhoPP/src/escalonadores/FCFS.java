@@ -38,13 +38,11 @@ public class FCFS {
             }
             if (lista.getTamanho() > 0) {
                 lista.get().executar();
-//                System.out.println(tempoAtual+" "+lista.get().getNome());
                 listaPlot.add(lista.get().getNome());
                 if (lista.get().getTempo() == 0) {
                     lista.remove();
                 }
             } else {
-//                System.out.println(tempoAtual + " " + "-");
                 listaPlot.add("-");
             }
             tempoAtual++;
