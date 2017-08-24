@@ -49,9 +49,6 @@ public class RR {
             }
 
             if (listaProcessos.getTamanho() > 0) {
-                if(tempoClock == 26){
-                    int teste = 0;
-                }
                 listaProcessos.obter().executar();
                 listaPlot.add(listaProcessos.obter().getNome());
                 quantum++;
